@@ -1,12 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Audio Player</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
+
 <body>
+    <header class="header">
+        <img src="img/Logo.png" alt="Logo" class="header__logo">
+        <form class="login">
+            <input type="text" class="login__field" placeholder="Username...">
+            <button class="btn login__btn">
+                <span>Enter</span>
+            </button>
+        </form>
+    </header>
     
+    <div class="container">
+        <div class="player-box">
+            <div class="player-box__controls">
+                <i class="fas fa-play fa-lg"></i>
+                <i class="fas fa-backward fa-lg"></i>
+                <i class="fas fa-forward fa-lg"></i>
+                <span id="time-current" class="time">00:00</span>
+                <progress id="seek-bar" value="0.5" max="1"></progress>
+                <span id="time-overall" class="time">00:00</span>
+                <i class="fas fa-volume-up fa-lg"></i>
+                <progress id="volume-bar" value="0.5" max="1"></progress>
+            </div>
+        </div>
+    </div>
+    
+    <!-- <footer class="footer">
+        <p href="">Check out the new logo that I created on <a href="http://logomakr.com" title="Logo Makr">LogoMakr.com</a> https://logomakr.com/57XlzJ</p>
+    </footer> -->
 </body>
+
 </html>

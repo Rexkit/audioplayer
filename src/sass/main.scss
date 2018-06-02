@@ -1,7 +1,97 @@
 @import 'variables';
 @import 'mixins';
 @import 'animations';
+@import 'base';
 
 body {
-    background: $bg-color;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    height: 100vh;
+    background-image: linear-gradient(to right bottom, $bg-color-primary, $bg-color-secondary);
+}
+
+.container {
+    max-width: 70rem;
+    margin: 4vw auto;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2rem 6rem 0.5rem rgba($color-shadow, 0.2);
+}
+
+.header {
+    background-color: $bg-color-light;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 1rem 5rem 0.5rem rgba($color-shadow, 0.2);
+    border-bottom-right-radius: .7rem;
+    border-bottom-left-radius: .7rem;
+    backface-visibility: hidden;
+    &__logo {
+        display: block;
+        height: 4rem;
+        margin-left: 2rem;
+        transition: all .5s;
+        
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+}
+
+.login {
+    background-color: $color-white;
+    border-radius: 10rem;
+    border: 1px solid #ddd;
+    padding-left: 2.5rem;
+    margin-right: 2rem;
+    display: flex;
+    align-items: center;
+    transition: all .3s;
+
+    &:focus-within {
+        transform: translateY(-1px);
+        box-shadow: 0 0.7rem 3rem rgba(101, 90, 86, 0.08);
+    }
+
+    &__field {
+        border: none;
+        background: none;
+        font-family: inherit;
+        color: inherit;
+        font-size: 1.7rem;
+        width: 30rem;
+    
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.btn {
+    background-image: linear-gradient(to right bottom, $bg-color-primary, $bg-color-secondary);
+    border-radius: 10rem;
+    border: none;
+    text-transform: uppercase;
+    color: #fff;
+    cursor: pointer;
+    transition: all .2s;
+    padding: 1.3rem 3rem;
+    font-size: 1.4rem;
+    outline: none;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+
+.player-box {
+    background-color: $bg-color-light;
+    height: 50vh;
+    &__controls {
+        display: flex;
+        justify-content: space-around;
+    }
 }
