@@ -52,6 +52,10 @@ body {
     animation: moveFromRight 1s ease-out;
     transition: all .3s;
 
+    &--logged {
+        display: none;
+    }
+
     &:focus-within {
         transform: translateY(-1px);
         box-shadow: 0 0.7rem 3rem rgba(101, 90, 86, 0.08);
@@ -68,6 +72,17 @@ body {
         &:focus {
             outline: none;
         }
+    }
+}
+
+.logged-box {
+    &__greetings {
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 2rem;
+        display: inline-block;
+        margin-right: 4rem;
+        letter-spacing: .4rem;
     }
 }
 
