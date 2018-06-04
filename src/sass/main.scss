@@ -167,3 +167,31 @@ body {
         }
     }
 }
+
+.playlists-box {
+    position: absolute;
+    background-color: $bg-color-light;
+    min-height: 30rem;
+    min-width: 15%;
+    border-radius: 6px;
+    box-shadow: 0 2rem 6rem 0.5rem rgba($color-shadow, 0.2);
+    margin: 10vh 0;
+    overflow: hidden;
+    left: 85%;
+    transform: translateX(90%);
+    transition: transform .5s ease;
+    &:hover {
+        transform: translateX(0);
+    }
+
+    &__heading {
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 2rem;
+        letter-spacing: .4rem;
+        position: absolute;
+        right: 21rem;
+        top: 13rem;
+        transform: rotate(-90deg);
+    }
+}
