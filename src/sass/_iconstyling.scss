@@ -1,0 +1,11 @@
+.material-icons.med {
+    font-size: 3rem;
+}
+
+.controls__icons {
+    backface-visibility: hidden;
+    transition: all .3s ease;
+    &:hover {
+        transform: scale(1.25);
+    }
+}

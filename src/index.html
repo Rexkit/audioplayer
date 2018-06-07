@@ -7,19 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Audio Player</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
     <header class="header">
         <img src="img/Logo.png" alt="Logo" class="header__logo">
-        <!-- class="login--loged" when logged -->
+        <!-- When logged -->
         <form class="login">
             <input type="text" class="login__field" placeholder="Enter Your Username">
             <button class="btn login__btn">
                 <span>Log In</span>
             </button>
         </form>
+        <!-- When NOT loged -->
         <!-- <div class="logged-box">
             <p class="logged-box__greetings">%User%, you're welcome</p>
             <button class="btn login__btn">
@@ -28,38 +29,61 @@
         </div> -->
     </header>
 
-    <div class="download-box">
-        <h2 class="download-box__heading">Upload Files</h2>
-        <div class="download-info">
-            <p class="download-info__field">0 files selected</p>
-            <button class="btn download-info__btn">Select files</button>
+    <!-- class hide if user is not logged -->
+    <main class="main">
+        <div class="download-box">
+            <h2 class="download-box__heading">Upload Files</h2>
+            <div class="download-info">
+                <p class="download-info__field">0 files selected</p>
+                <button class="btn download-info__btn">Select files</button>
+            </div>
+            <buttton class="btn download-box__btn">Upload</buttton>
         </div>
-        <buttton class="btn download-box__btn">Upload</buttton>
-    </div>
-    
-    <div class="playlists-box">
-        <h2 class="playlists-box__heading">Playlists</h2>
-    </div>
+        
+        <div class="playlists-box">
+            <h2 class="playlists-box__heading">Playlists</h2>
+            <div class="playlist-add">
+                <input type="text" class="playlist-add__field" placeholder="Playlist name">
+                <span class="playlist-add__btn">+</span>
+            </div>
+            <ul class="playlists-list">
+                <li class="playlists-list__item">Car playlist<span class="playlists-list__item--close">X</span></li>
+                <li class="playlists-list__item">Playlist for party<span class="playlists-list__item--close">X</span></li>
+                <li class="playlists-list__item">Best music in the whole world<span class="playlists-list__item--close">X</span></li>
+            </ul>
+        </div>
 
-    <div class="container">
-        <div class="player-box">
-            <!-- <div class="player-box__controls">
-                <i class="fas fa-play fa-lg"></i>
-                <i class="fas fa-backward fa-lg"></i>
-                <i class="fas fa-forward fa-lg"></i>
-                <span id="time-current" class="time">00:00</span>
-                <progress id="seek-bar" value="0.5" max="1"></progress>
-                <span id="time-overall" class="time">00:00</span>
-                <i class="fas fa-volume-up fa-lg"></i>
-                <progress id="volume-bar" value="0.5" max="1"></progress>
-            </div> -->
+        <div class="container">
+            <div class="player-box">
+                <div class="player-box__controls">
+                    <i class="material-icons med controls__icons">play_arrow</i>
+                    <i class="material-icons med controls__icons">fast_rewind</i>
+                    <i class="material-icons med controls__icons">fast_forward</i>
+                    <span id="time-current" class="time">00:00</span>
+                    <progress class="prog-bar prog-bar__timeline" id="seek-bar" value="0.5" max="1"></progress>
+                    <span id="time-overall" class="time">00:00</span>
+                    <i class="material-icons med controls__icons">volume_up</i>
+                    <progress class="prog-bar prog-bar__volumeline" id="volume-bar" value="0.5" max="1"></progress>
+                </div>
+                <h2 class="player-box__heading">Tracks</h2>
+                <ul class="tracks">
+                    <li class="tracks__item">Kendrick Lamar - All The Stars<span class="tracks__item--close">X</span></li>
+                    <li class="tracks__item">Twenty One Pilots - Heathens<span class="tracks__item--close">X</span></li>
+                    <li class="tracks__item">Future - Mask Off<span class="tracks__item--close">X</span></li>
+                    <li class="tracks__item">A$AP Rocky - A$AP Forever<span class="tracks__item--close">X</span></li>
+                </ul>
+            </div>
         </div>
-    </div>
+    </main>
+
+    
 
     
     
     <!-- <footer class="footer">
-        <p href="">Check out the new logo that I created on <a href="http://logomakr.com" title="Logo Makr">LogoMakr.com</a> https://logomakr.com/57XlzJ</p>
+        <div class="logo-a">
+            <p href="">Check out the new logo that I created on <a href="http://logomakr.com" title="Logo Makr">LogoMakr.com</a> https://logomakr.com/57XlzJ</p>
+        </div>
     </footer> -->
 </body>
 
