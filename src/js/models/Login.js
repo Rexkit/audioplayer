@@ -6,15 +6,6 @@ export default class Login {
         this.username = username;
     }
 
-    async getData() {
-        try {
-            const res = await axios(`${serverURL}uploads/${this.username}`);
-            return res.data;
-        } catch (error) {
-            console.log(error);
-        } 
-    }
-
     logout() {
         this.username = '';
     }
