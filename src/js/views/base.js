@@ -5,7 +5,8 @@ export const elements = {
     userFolders: document.querySelector('.playlists-list'),
     folderField: document.querySelector('.playlist-add__field'),
     folderAddBtn: document.querySelector('.playlist-add__btn'),
-    folders: document.querySelector('.playlists-box')
+    folders: document.querySelector('.playlists-box'),
+    tracks: document.querySelector('.tracks')
 };
 
 export const fileFormats = ['.mp3'];

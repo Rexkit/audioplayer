@@ -3,9 +3,33 @@ import { serverURL } from './settings';
 
 export const getUserFolderData = async (username, folder) => {
     try {
-        const res = await axios(`${serverURL}uploads/${username}/${folder !== undefined ? folder : ''}`);
+        const res = await axios.get(`${serverURL}uploads/${username}/${folder !== undefined ? folder : ''}`);
         return res.data;
     } catch (error) {
         console.log(error);
-    } 
+    }
+};
+
+export const removeRemoteFolder = async (username, folder) => {
+    try {
+        const res = await axios.delete(`${serverURL}uploads/${username}/${folder}`);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const addRemoteFolder = async (username, folder) => {
+    try {
+        const res = await axios.post(`${serverURL}uploads/${username}/${folder}`);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const removeRemoteTrack = async (username, folder, track) => {
+    try {
+        const res = await axios.delete(`${serverURL}uploads/${username}/${folder}/${track}`);
+    } catch (error) {
+        console.log(error);
+    }
 }

@@ -2,9 +2,9 @@ import { elements } from './base';
 
 export const renderItem = (item) => {
     const markup = `
-        <li class="playlists-list__item">${item}<span class="playlists-list__item--close">X</span></li>
+        <li class="tracks__item">${item}<span class="tracks__item--close">X</span></li>
         `;
-    elements.userFolders.insertAdjacentHTML('beforeend', markup);
+    elements.tracks.insertAdjacentHTML('beforeend', markup);
 };
 
 export const renderItems = (items) => {
@@ -18,5 +18,5 @@ export const removeItem = (item) => {
 };
 
 export const removeItems = () => {
-    elements.userFolders.innerHTML = '';
+    elements.tracks.innerHTML = '';
 }
