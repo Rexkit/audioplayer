@@ -22,9 +22,9 @@ const controlLogin = async type => {
     if (type === 'login') {
         const username = loginView.getUsername();
         state.login = new Login(username);
-        console.log(state.login);
         loginView.clearLogin();
         loginView.renderLogin(type, username);
+        loginView.initialRender(type);
         try {
             const data = await request.getUserFolderData(username);
             console.log(data); // TODO
@@ -35,6 +35,11 @@ const controlLogin = async type => {
     } else if (type === 'logout') {
         loginView.clearLogin();
         loginView.renderLogin(type);
+        loginView.initialRender(type);
+        if (state.folderList) {
+            folderlistView.removeItems();
+            tracklistView.removeItems();
+        }
         state.login.logout();
     }
 };
@@ -51,9 +56,45 @@ elements.headerLogin.addEventListener('click', e => {
 /**
  * Uploader controller
  */
-const controlUploader = async () => {
+const controlUploader = async (files) => {
     state.uploader = new Uploader(files);
+    uploaderView.renderFileLength(files);
 };
+
+document.querySelector('.download-box__upload').addEventListener('change', e => {
+    controlUploader(e.target.files);
+});
+
+//Upld handler
+const handleUpload = async () => {
+    try {
+        if (state.uploader) {
+            await state.uploader.uploadFiles(state.login.username, state.tracklist.currentPlaylist);
+            tracklistView.renderItems(state.uploader.getFileNames());
+            uploaderView.renderFileLength(state.uploader.files, true);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+elements.uploadFilesBtn.addEventListener('click', e => {
+    handleUpload();
+});
+
+// Util evt listener for triggering file input elem
+elements.selectFilesBtn.addEventListener('click', e => {
+    const elem = document.querySelector('.download-box__upload');
+    let evt = new MouseEvent('click', {
+		bubbles: true,
+		cancelable: true,
+		view: window
+	});
+	// If cancelled, don't dispatch our event
+	let canceled = !elem.dispatchEvent(evt);
+});
+
+
 
 /**
  * FolderList controller
@@ -79,6 +120,10 @@ elements.folders.addEventListener('click', e => {
         folderName = folderName.substring(0, folderName.length - 1);
         state.folderList.removeFolder(state.login.username, folderName);
         folderlistView.removeItem(e.target);
+        // clear tracklist if it contains tracks from removed folder
+        if (state.tracklist && state.tracklist.currentPlaylist === folderName) {
+            tracklistView.removeItems();
+        }  
     } else if (e.target.matches('.playlists-list__item')) {
         let folderName = e.target.textContent;
         folderName = folderName.substring(0, folderName.length - 1);

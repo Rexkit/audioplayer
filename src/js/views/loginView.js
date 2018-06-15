@@ -29,3 +29,11 @@ export const renderLogin = (type, username) => {
 export const clearLogin = (type) => {
     elements.headerLogin.innerHTML = '';
 };
+
+export const initialRender = (type) => {
+    if (type === 'logout') {
+        elements.main.style.display = 'none';
+    } else if (type === 'login') {
+        elements.main.style.display = 'initial';
+    }
+};

@@ -383,5 +383,10 @@ body {
 }
 
 .main {
+    display: none;
     overflow: hidden;
+}
+
+.download-box__upload {
+    display: none;
 }

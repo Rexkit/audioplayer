@@ -1,6 +1,21 @@
 import axios from 'axios';
 import { serverURL } from './settings';
 
+const uploadConfig = {
+    onUploadProgress: progressEvent => {
+      let percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
+      console.log(percentCompleted);
+    }
+}
+
+export const uploadFiles = async (username, folder, data) => {
+    try {
+        const res = await axios.post(`${serverURL}uploads/${username}/${folder}/upld`, data, uploadConfig);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const getUserFolderData = async (username, folder) => {
     try {
         const res = await axios.get(`${serverURL}uploads/${username}/${folder !== undefined ? folder : ''}`);

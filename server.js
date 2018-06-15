@@ -1,7 +1,8 @@
 const express = require('express');
-const app = express();
 const path = require('path');
 const fs = require('fs-extra');
+const formidable = require('formidable');
+const app = express();
 
 app.use(express.static(path.join(__dirname, 'app')));
 
@@ -107,6 +108,7 @@ app.delete('/uploads/:user/:folder/:track', async (req, res) => {
     }
 });
 
+// Folder create req
 app.post('/uploads/:user/:folder', async (req, res) => {
     const username = req.params.user;
     const folder = req.params.folder;
@@ -116,6 +118,30 @@ app.post('/uploads/:user/:folder', async (req, res) => {
     } catch (err) {
         console.error(err)
     }
+});
+
+//Files upload req
+app.post('/uploads/:user/:folder/:upld', async (req, res) => {
+    const username = req.params.user;
+    const folder = req.params.folder;
+    const form = new formidable.IncomingForm();
+
+    form.multiples = true;
+
+    form.uploadDir = path.join(__dirname, `/uploads/${username}/${folder}`);
+
+    form.on('file', (field, file) => {
+        fs.rename(file.path, path.join(form.uploadDir, file.name));
+    });
+
+    form.on('error', err => {
+        console.log(`Upload error: ${err}`);
+    });
+
+    form.on('end', function () {
+        res.end('success');
+    });
+    form.parse(req);
 });
 
 /**
