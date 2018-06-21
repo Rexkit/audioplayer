@@ -18,7 +18,9 @@ export const elements = {
     play: document.querySelector('.play'),
     next: document.querySelector('.next'),
     back: document.querySelector('.back'),
-    mute: document.querySelector('.volume')
+    mute: document.querySelector('.volume'),
+    curTime: document.getElementById('time-current'),
+    allTime: document.getElementById('time-overall')
 };
 
 export const fileFormats = ['.mp3'];

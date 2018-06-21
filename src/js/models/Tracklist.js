@@ -4,6 +4,7 @@ export default class TrackList {
     constructor(curFolder) {
         this.currentPlaylist = curFolder;
         this.tracks = [];
+        this.currentElement;
     }
 
     parseTracks(data) {
@@ -15,6 +16,7 @@ export default class TrackList {
             }
         });
         this.tracks = newTracks;
+        console.log(this.tracks);
     }
 
     addTrack(name) {

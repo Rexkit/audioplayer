@@ -1,6 +1,8 @@
 import { elements } from './base';
 
-export const getUsername = () => elements.loginField.value;
+export const getUsername = () => {
+    return document.querySelector('.login__field').value;
+};
 
 export const renderLogin = (type, username) => {
     let markup;

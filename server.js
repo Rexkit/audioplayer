@@ -88,11 +88,14 @@ app.get('/uploads/:user/:folder/:song', async (req, res) => {
     const song = req.params.song;
     const userName = req.params.user;
     const folder = req.params.folder;
-
-    const stat = await fs.stat(`${__dirname}/uploads/${userName}/${folder}/${song}`);
-    res.set('Content-Length', stat.size);
-    res.set('Accept-Ranges', 'bytes');
-    fs.createReadStream(`${__dirname}/uploads/${userName}/${folder}/${song}`).pipe(res);
+    try {
+        const stat = await fs.stat(`${__dirname}/uploads/${userName}/${folder}/${song}`);
+        res.set('Content-Length', stat.size);
+        res.set('Accept-Ranges', 'bytes');
+        fs.createReadStream(`${__dirname}/uploads/${userName}/${folder}/${song}`).pipe(res);
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 app.delete('/uploads/:user/:folder', async (req, res) => {

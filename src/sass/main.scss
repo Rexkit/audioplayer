@@ -394,3 +394,7 @@ body {
 .download-box__upload {
     display: none;
 }
+
+.tracks .selected {
+    border-bottom: 1px solid $color-grey-dark;
+}

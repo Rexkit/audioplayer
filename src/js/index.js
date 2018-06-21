@@ -22,7 +22,9 @@ const state = {};
  */
 const controlLogin = async type => {
     if (type === 'login') {
+        console.log('login');
         const username = loginView.getUsername();
+        console.log(username);
         state.login = new Login(username);
         loginView.clearLogin();
         loginView.renderLogin(type, username);
@@ -36,14 +38,24 @@ const controlLogin = async type => {
             console.log(error);
         }
     } else if (type === 'logout') {
+        console.log('logout');
         loginView.clearLogin();
         loginView.renderLogin(type);
         loginView.initialRender(type);
+        if (state.player) {
+            //TODO
+            elements.player.pause();
+            elements.player.currentTime = 0;
+            delete state.player;
+            console.log('deleted');
+        }
         if (state.folderList) {
             folderlistView.removeItems();
             tracklistView.removeItems();
         }
+        audioplayerView.defaultState();
         state.login.logout();
+        console.log(state.login);
     }
 };
 
@@ -147,7 +159,7 @@ const controlTrackList = async (folder) => {
         state.tracklist = new Tracklist(folder);
         state.tracklist.parseTracks(data);
         console.log(state.tracklist);
-        tracklistView.renderItems(state.tracklist.tracks, folder, state.login.username);
+        tracklistView.renderItems(state.tracklist.tracks, folder, state.login.username) 
     } catch (error) {
         console.log(error);  
     }
@@ -161,11 +173,26 @@ elements.tracks.addEventListener('click', e => {
         state.tracklist.removeTrack(state.login.username, trackName);
         tracklistView.removeItem(e.target);
     } else if (e.target.matches('.tracks__item')) {
-        //TODO
-        let trackSrc = e.target.dataset.src;
-        controlPlayer(elements.volumebar.value, trackSrc);
+        // Change track
+        trackItemSelectHandler(e.target);
     }
 });
+
+const trackItemSelectHandler = (item) => {
+    console.log(state.tracklist.currentElement);
+    if (state.tracklist.currentElement) {
+        if (state.player) {
+            audioplayerView.playerPauseToogle();
+        }
+        state.tracklist.currentElement.classList.toggle('selected');
+        elements.player.pause;
+    }
+    state.tracklist.currentElement = item;
+    let trackSrc = item.dataset.src;
+    controlPlayer(elements.volumebar.value, trackSrc);
+    item.classList.toggle('selected');
+    console.log(state.tracklist.currentElement);
+}
 
 
 /**
@@ -176,6 +203,7 @@ const controlPlayer = async (volume, src) => {
     elements.playerSrc.src = state.player.getSrc();
     elements.player.load();
     elements.volumebar.value = elements.player.volume;
+    audioplayerView.playerPauseToogle();
     console.log(state.player);
 }
 
@@ -183,20 +211,39 @@ const controlPlayer = async (volume, src) => {
 elements.player.onloadedmetadata = (e) => {
     state.player.duration = elements.player.duration;
     elements.timebar.max = elements.player.duration;
+    audioplayerView.updateTime(elements.allTime, state.player.duration);
     console.log(state.player);
 };
 
 elements.play.addEventListener('click', () => {
     if (state.player) {
-        elements.player[elements.player.paused ? 'play' : 'pause']();  //TODO
-        // elements.play.toggleClass("fa-pause", !player.paused);
-        // elements.play.toggleClass("fa-play", player.paused);
+        audioplayerView.playerPauseToogle();
+    }
+});
+
+elements.next.addEventListener('click', () => {
+    if (state.player && state.tracklist) {
+        let nextEl = state.tracklist.currentElement.nextElementSibling;
+        if (nextEl === null) {
+            nextEl = state.tracklist.currentElement.parentElement.firstElementChild;
+        }
+        trackItemSelectHandler(nextEl);
+    }
+});
+
+elements.back.addEventListener('click', () => {
+    if (state.player && state.tracklist) {
+        let prevEl = state.tracklist.currentElement.previousElementSibling;
+        if (prevEl === null) {
+            prevEl = state.tracklist.currentElement.parentElement.lastElementChild;
+        }
+        trackItemSelectHandler(prevEl);
     }
 });
 
 elements.player.addEventListener("timeupdate", () => {
     audioplayerView.updateProgbar(elements.timebar, elements.player.currentTime);
-    audioplayerView.updateTime(document.getElementById('time-current'), elements.player.currentTime);
+    audioplayerView.updateTime(elements.curTime, elements.player.currentTime);
 });
 
 elements.timebar.addEventListener('click', function(e) {

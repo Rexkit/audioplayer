@@ -14,14 +14,16 @@ export const progressRender = (str) => {
     }
 }
 
-export const renderItem = (item, folder, username) => {
+export const renderItem = (item, folder, username, selected) => {
+    const src = `${serverURL}uploads/${username}/${folder}/${item}`;
     const markup = `
-        <li class="tracks__item" data-src="${serverURL}uploads/${username}/${folder}/${item}">${formatName(item)}<span class="tracks__item--close">X</span></li>
+        <li class="tracks__item" data-src="${src}">${formatName(item)}<span class="tracks__item--close">X</span></li>
         `;
+        // ${src === elements.playerSrc.src ? 'selected' : ''}
     elements.tracks.insertAdjacentHTML('beforeend', markup);
 };
 
-export const renderItems = (items, folder, username) => {
+export const renderItems = (items, folder, username, currentPlaying) => {
     items.forEach((el) => {
         renderItem(el, folder, username);
     });
