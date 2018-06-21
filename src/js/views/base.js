@@ -9,7 +9,16 @@ export const elements = {
     folders: document.querySelector('.playlists-box'),
     tracks: document.querySelector('.tracks'),
     selectFilesBtn: document.querySelector('.download-info__btn'),
-    uploadFilesBtn: document.querySelector('.download-box__btn')
+    uploadFilesBtn: document.querySelector('.download-box__btn'),
+    progress: document.querySelector('.player-box__heading'),
+    player: document.getElementById('player'),
+    playerSrc: document.getElementById('playerSrc'),
+    volumebar: document.querySelector('.prog-bar__volumeline'),
+    timebar: document.querySelector('.prog-bar__timeline'),
+    play: document.querySelector('.play'),
+    next: document.querySelector('.next'),
+    back: document.querySelector('.back'),
+    mute: document.querySelector('.volume')
 };
 
 export const fileFormats = ['.mp3'];

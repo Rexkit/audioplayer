@@ -13,7 +13,7 @@ app.use(function (req, res, next) {
         res.setHeader('Access-Control-Allow-Origin', origin);
     }
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
@@ -50,7 +50,9 @@ app.get('/uploads/:user/', async (req, res) => {
             if (err != null) console.log(err);
             if (files) {
                 files.forEach(file => {
-                    data.push(file);
+                    if (file !== 'Main') {
+                        data.push(file);
+                    }
                 });
             }
             res.send(data);
@@ -80,6 +82,17 @@ app.get('/uploads/:user/:folder', async (req, res) => {
         console.log(error);
     }
     
+});
+
+app.get('/uploads/:user/:folder/:song', async (req, res) => {
+    const song = req.params.song;
+    const userName = req.params.user;
+    const folder = req.params.folder;
+
+    const stat = await fs.stat(`${__dirname}/uploads/${userName}/${folder}/${song}`);
+    res.set('Content-Length', stat.size);
+    res.set('Accept-Ranges', 'bytes');
+    fs.createReadStream(`${__dirname}/uploads/${userName}/${folder}/${song}`).pipe(res);
 });
 
 app.delete('/uploads/:user/:folder', async (req, res) => {
