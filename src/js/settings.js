@@ -1,1 +1,1 @@
-export const serverURL = 'http://audioplayer-project.herokuapp.com/';
+export const serverURL = 'https://audioplayer-project.herokuapp.com/';
