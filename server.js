@@ -44,6 +44,7 @@ app.get('/uploads/:user/', async (req, res) => {
     try {
         const username = req.params.user;
         const userFolder = `${__dirname}/uploads/${username}`;
+        console.log(`${__dirname}/uploads/${username}`);
         let data = [];
         await handleFolder(userFolder);
         fs.readdir(userFolder, (err, files) => {

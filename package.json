@@ -2,7 +2,7 @@
     "name": "audioplayer-project",
     "version": "1.0.0",
     "description": "Simple audio player",
-    "main": "app.js",
+    "main": "server.js",
     "scripts": {
         "dev": "webpack --mode development",
         "build": "webpack --mode production",
