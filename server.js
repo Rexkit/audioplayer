@@ -19,28 +19,10 @@ app.use(function (req, res, next) {
 });
 
 /**
- * Utils
- */
-
-const handleFolder = async (folder) => {
-    fs.access(folder, (err) => {
-        if (err && err.code === 'ENOENT') {
-            fs.mkdir(folder, (error) => {
-                console.log(error);
-            });
-
-            fs.mkdir(`${folder}/Main`, (error) => {
-                console.log(error);
-            });
-        }
-    });
-}
-
-/**
  * Routes
  */
 
-app.get('/', (req, res) => {
+app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
@@ -48,9 +30,11 @@ app.get('/uploads/:user/', async (req, res) => {
     try {
         const username = req.params.user;
         const userFolder = `${__dirname}/uploads/${username}`;
-        console.log(`${__dirname}/uploads/${username}`);
         let data = [];
-        await handleFolder(userFolder);
+        await fs.ensureDir(userFolder);
+        console.log(`${userFolder} created or exists`);
+        await fs.ensureDir(`${userFolder}/Main`);
+        console.log(`${userFolder}/Main created or exists`);
         fs.readdir(userFolder, (err, files) => {
             if (err != null) console.log(err);
             if (files) {
@@ -73,12 +57,6 @@ app.get('/uploads/:user/:folder', async (req, res) => {
         const username = req.params.user;
         const folder = req.params.folder;
         const userFolder = `${__dirname}/uploads/${username}/${folder}`;
-        try {
-            await fs.ensureDir(`${__dirname}/uploads`);
-            console.log('success dir upld!')
-        } catch (err) {
-            console.error(err)
-        }
         let data = [];
         fs.readdir(userFolder, (err, files) => {
             if (err != null) console.log(err);
