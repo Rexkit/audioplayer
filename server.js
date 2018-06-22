@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 const formidable = require('formidable');
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'app')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use(function (req, res, next) {
     var allowedOrigins = ['http://localhost:8080'];
