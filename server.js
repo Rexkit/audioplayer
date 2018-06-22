@@ -7,7 +7,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use(function (req, res, next) {
-    var allowedOrigins = ['http://localhost:8080'];
+    var allowedOrigins = ['http://localhost:8080', 'http://audioplayer-project.herokuapp.com', 'https://audioplayer-project.herokuapp.com'];
     var origin = req.headers.origin;
     if (allowedOrigins.indexOf(origin) > -1) {
         res.setHeader('Access-Control-Allow-Origin', origin);
@@ -164,7 +164,7 @@ app.post('/uploads/:user/:folder/:upld', async (req, res) => {
  * Server cfg
  */
 
-app.set('port', 3000);
+app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), function() {
     console.log('Node App Started');
 });
