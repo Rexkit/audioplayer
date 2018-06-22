@@ -40,13 +40,7 @@ const handleFolder = async (folder) => {
  * Routes
  */
 
-app.get('/', async (req, res) => {
-    try {
-        await fs.ensureDir(`${__dirname}/uploads`);
-        console.log('success dir upld!')
-    } catch (err) {
-        console.error(err)
-    }
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
@@ -79,6 +73,12 @@ app.get('/uploads/:user/:folder', async (req, res) => {
         const username = req.params.user;
         const folder = req.params.folder;
         const userFolder = `${__dirname}/uploads/${username}/${folder}`;
+        try {
+            await fs.ensureDir(`${__dirname}/uploads`);
+            console.log('success dir upld!')
+        } catch (err) {
+            console.error(err)
+        }
         let data = [];
         fs.readdir(userFolder, (err, files) => {
             if (err != null) console.log(err);
