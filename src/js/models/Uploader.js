@@ -5,11 +5,22 @@ export default class Uploader {
         this.files = [...files];
     }
 
-    async uploadFiles(username, folder) {
+    async uploadFiles(username, folder, tracklist) {
         let formData = new FormData();
 
+        const filesToDelete = [];
+
         this.files.forEach(elem => {
-            formData.append('uploads[]', elem, elem.name);
+            if (!tracklist.tracks.includes(elem.name)) {
+                formData.append('uploads[]', elem, elem.name);
+                tracklist.addTrack(elem.name);
+            } else {
+                filesToDelete.push(elem);
+            }
+        });
+
+        filesToDelete.forEach(elem => {
+            this.removeFile(elem);
         });
         
         try {
@@ -22,5 +33,10 @@ export default class Uploader {
     getFileNames() {
         const names = this.files.map(elem => elem.name);
         return names;
+    }
+
+    removeFile(file) {
+        const ix = this.files.findIndex(el => el.name === file.name);
+        this.files.splice(ix, 1);
     }
 }

@@ -78,7 +78,7 @@ document.querySelector('.download-box__upload').addEventListener('change', e => 
 const handleUpload = async () => {
     try {
         if (state.uploader) {
-            await state.uploader.uploadFiles(state.login.username, state.tracklist.currentPlaylist);
+            await state.uploader.uploadFiles(state.login.username, state.tracklist.currentPlaylist, state.tracklist);
             tracklistView.renderItems(state.uploader.getFileNames(), state.tracklist.currentPlaylist, state.login.username);
             uploaderView.renderFileLength(state.uploader.files, true);
         }
@@ -162,10 +162,10 @@ elements.tracks.addEventListener('click', e => {
     if (e.target.matches('.tracks__item--close')) {
         let trackName = e.target.parentElement.dataset.src;
         trackName = trackName.substring(trackName.lastIndexOf('/')+1);
-        if (e.target.parentElement === state.tracklist.currentElement) {
-            selectNextTrack();
-        }
         state.tracklist.removeTrack(state.login.username, trackName);
+        if (e.target.parentElement === state.tracklist.currentElement) {
+            selectNextTrack(); 
+        }
         tracklistView.removeItem(e.target);
     } else if (e.target.matches('.tracks__item')) {
         // Change track
