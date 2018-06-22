@@ -1,12 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Audio Player</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
 <body>
+    <audio id="player" preload="auto">
+        <source id="playerSrc" src="" type="audio/mpeg" />
+    </audio>
+    <header class="header">
+        <img src="img/Logo.png" alt="Logo" class="header__logo">
+        <div class="header__login">
+            <!-- When NOT logged -->
+            <form class="login">
+                <input type="text" class="login__field" placeholder="Enter Your Username">
+                <button class="btn login__btn">
+                    <span>Log In</span>
+                </button>
+            </form>
+            <!-- When logged -->
+            <!-- <div class="logged-box">
+                <p class="logged-box__greetings">%User%, you're welcome</p>
+                <button class="btn logout__btn">
+                    <span>Log Out</span>
+                </button>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- class hide if user is not logged -->
+    <main class="main">
+        <div class="download-box">
+            <h2 class="download-box__heading">Upload Files</h2>
+            <input name="file" class="download-box__upload" type="file" accept=".mp3" multiple>
+            <div class="download-info">
+                <p class="download-info__field">0 files selected</p>
+                <button class="btn download-info__btn">Select files</button>
+            </div>
+            <buttton class="btn download-box__btn">Upload</buttton>
+        </div>
+        
+        <div class="playlists-box">
+            <h2 class="playlists-box__heading">Playlists</h2>
+            <div class="playlist-add">
+                <input type="text" class="playlist-add__field" placeholder="Playlist name">
+                <span class="playlist-add__btn">+</span>
+            </div>
+            <ul class="playlists-list">
+                <!-- <li class="playlists-list__item">Car playlist<span class="playlists-list__item--close">X</span></li>
+                <li class="playlists-list__item">Playlist for party<span class="playlists-list__item--close">X</span></li>
+                <li class="playlists-list__item">Best music in the whole world<span class="playlists-list__item--close">X</span></li> -->
+            </ul>
+            <button class="playlists-box__return btn">Return to Main</button>
+        </div>
+
+        <div class="container">
+            <div class="player-box">
+                <div class="player-box__controls">
+                    <i class="material-icons med controls__icons play">play_arrow</i>
+                    <i class="material-icons med controls__icons back">fast_rewind</i>
+                    <i class="material-icons med controls__icons next">fast_forward</i>
+                    <span id="time-current" class="time">00:00</span>
+                    <progress class="prog-bar prog-bar__timeline" id="seek-bar" value="0" max="1"></progress>
+                    <span id="time-overall" class="time">00:00</span>
+                    <i class="material-icons med controls__icons volume">volume_up</i>
+                    <progress class="prog-bar prog-bar__volumeline" id="volume-bar" value="1" max="1"></progress>
+                </div>
+                <h2 class="player-box__heading">Tracks</h2>
+                <ul class="tracks">
+                    <!-- <li class="tracks__item">Kendrick Lamar - All The Stars<span class="tracks__item--close">X</span></li>
+                    <li class="tracks__item">Twenty One Pilots - Heathens<span class="tracks__item--close">X</span></li>
+                    <li class="tracks__item">Future - Mask Off<span class="tracks__item--close">X</span></li>
+                    <li class="tracks__item">A$AP Rocky - A$AP Forever<span class="tracks__item--close">X</span></li> -->
+                </ul>
+            </div>
+        </div>
+    </main>
+
     
+
+    
+    
+    <!-- <footer class="footer">
+        <div class="logo-a">
+            <p href="">Check out the new logo that I created on <a href="http://logomakr.com" title="Logo Makr">LogoMakr.com</a> https://logomakr.com/57XlzJ</p>
+        </div>
+    </footer> -->
 <script type="text/javascript" src="js/bundle.js"></script></body>
+
 </html>

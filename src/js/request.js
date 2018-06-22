@@ -5,7 +5,6 @@ import { progressRender } from './views/tracklistView';
 const uploadConfig = {
     onUploadProgress: progressEvent => {
       let percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
-      console.log(percentCompleted);
       progressRender(percentCompleted);
     }
 }

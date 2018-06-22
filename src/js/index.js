@@ -22,23 +22,19 @@ const state = {};
  */
 const controlLogin = async type => {
     if (type === 'login') {
-        console.log('login');
         const username = loginView.getUsername();
-        console.log(username);
         state.login = new Login(username);
         loginView.clearLogin();
         loginView.renderLogin(type, username);
         loginView.initialRender(type);
         try {
             const data = await request.getUserFolderData(username);
-            console.log(data); // TODO
             controlFolderList(data);
             controlTrackList('Main');
         } catch (error) {
             console.log(error);
         }
     } else if (type === 'logout') {
-        console.log('logout');
         loginView.clearLogin();
         loginView.renderLogin(type);
         loginView.initialRender(type);
@@ -47,7 +43,6 @@ const controlLogin = async type => {
             elements.player.pause();
             elements.player.currentTime = 0;
             delete state.player;
-            console.log('deleted');
         }
         if (state.folderList) {
             folderlistView.removeItems();
@@ -55,7 +50,6 @@ const controlLogin = async type => {
         }
         audioplayerView.defaultState();
         state.login.logout();
-        console.log(state.login);
     }
 };
 
@@ -73,11 +67,11 @@ elements.headerLogin.addEventListener('click', e => {
  */
 const controlUploader = async (files) => {
     state.uploader = new Uploader(files);
-    uploaderView.renderFileLength(files);
 };
 
 document.querySelector('.download-box__upload').addEventListener('change', e => {
     controlUploader(e.target.files);
+    uploaderView.renderFileLength(e.target.files);
 });
 
 //Upld handler
@@ -158,7 +152,6 @@ const controlTrackList = async (folder) => {
         const data = await request.getUserFolderData(state.login.username, folder);
         state.tracklist = new Tracklist(folder);
         state.tracklist.parseTracks(data);
-        console.log(state.tracklist);
         tracklistView.renderItems(state.tracklist.tracks, folder, state.login.username) 
     } catch (error) {
         console.log(error);  
@@ -169,7 +162,9 @@ elements.tracks.addEventListener('click', e => {
     if (e.target.matches('.tracks__item--close')) {
         let trackName = e.target.parentElement.dataset.src;
         trackName = trackName.substring(trackName.lastIndexOf('/')+1);
-        console.log(trackName);
+        if (e.target.parentElement === state.tracklist.currentElement) {
+            selectNextTrack();
+        }
         state.tracklist.removeTrack(state.login.username, trackName);
         tracklistView.removeItem(e.target);
     } else if (e.target.matches('.tracks__item')) {
@@ -179,7 +174,6 @@ elements.tracks.addEventListener('click', e => {
 });
 
 const trackItemSelectHandler = (item) => {
-    console.log(state.tracklist.currentElement);
     if (state.tracklist.currentElement) {
         if (state.player) {
             audioplayerView.playerPauseToogle();
@@ -191,7 +185,6 @@ const trackItemSelectHandler = (item) => {
     let trackSrc = item.dataset.src;
     controlPlayer(elements.volumebar.value, trackSrc);
     item.classList.toggle('selected');
-    console.log(state.tracklist.currentElement);
 }
 
 
@@ -204,7 +197,6 @@ const controlPlayer = async (volume, src) => {
     elements.player.load();
     elements.volumebar.value = elements.player.volume;
     audioplayerView.playerPauseToogle();
-    console.log(state.player);
 }
 
     
@@ -212,7 +204,6 @@ elements.player.onloadedmetadata = (e) => {
     state.player.duration = elements.player.duration;
     elements.timebar.max = elements.player.duration;
     audioplayerView.updateTime(elements.allTime, state.player.duration);
-    console.log(state.player);
 };
 
 elements.play.addEventListener('click', () => {
@@ -222,13 +213,7 @@ elements.play.addEventListener('click', () => {
 });
 
 elements.next.addEventListener('click', () => {
-    if (state.player && state.tracklist) {
-        let nextEl = state.tracklist.currentElement.nextElementSibling;
-        if (nextEl === null) {
-            nextEl = state.tracklist.currentElement.parentElement.firstElementChild;
-        }
-        trackItemSelectHandler(nextEl);
-    }
+    selectNextTrack();
 });
 
 elements.back.addEventListener('click', () => {
@@ -241,9 +226,41 @@ elements.back.addEventListener('click', () => {
     }
 });
 
+const selectNextTrack = () => {
+    if (state.player && state.tracklist) {
+        let nextEl = state.tracklist.currentElement.nextElementSibling;
+        if (nextEl === null) {
+            nextEl = state.tracklist.currentElement.parentElement.firstElementChild;
+        }
+        trackItemSelectHandler(nextEl);
+    }
+}
+
+elements.mute.addEventListener('click', () => {
+    if (state.player) {
+        if (elements.player.volume === 0) {
+            elements.player.volume = state.player.volume;
+        } else {
+            state.player.volume = elements.player.volume;
+            elements.player.volume = 0;
+        }
+    
+        audioplayerView.updateProgbar(elements.volumebar, elements.player.volume);
+        if (elements.player.volume !== 0) {
+            elements.mute.textContent = 'volume_up';
+        } else if (elements.player.volume === 0) {
+            elements.mute.textContent = 'volume_off';
+        }   
+    }
+});
+
 elements.player.addEventListener("timeupdate", () => {
     audioplayerView.updateProgbar(elements.timebar, elements.player.currentTime);
     audioplayerView.updateTime(elements.curTime, elements.player.currentTime);
+});
+
+elements.player.addEventListener('ended', () => {
+    selectNextTrack();
 });
 
 elements.timebar.addEventListener('click', function(e) {
@@ -254,10 +271,7 @@ elements.timebar.addEventListener('click', function(e) {
     audioplayerView.updateProgbar(elements.timebar, clickedValue);
     if (state.player) {
         elements.player.currentTime = elements.player.duration / this.max * clickedValue;
-        console.log(elements.player.currentTime);
     }
-    
-    console.log(x, y, clickedValue);
 });
 
 elements.volumebar.addEventListener('click', function(e) {
@@ -270,6 +284,4 @@ elements.volumebar.addEventListener('click', function(e) {
         state.player.setVolume(clickedValue);
         elements.player.volume = clickedValue / this.max;
     }
-    console.log(x, y, clickedValue);
-    console.log(state.player);
 });

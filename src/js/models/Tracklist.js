@@ -16,7 +16,6 @@ export default class TrackList {
             }
         });
         this.tracks = newTracks;
-        console.log(this.tracks);
     }
 
     addTrack(name) {

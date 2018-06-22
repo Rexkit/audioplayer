@@ -21,6 +21,7 @@ export const defaultState = () => {
     elements.play.textContent = 'play_arrow';
     elements.curTime.textContent = '00:00';
     elements.allTime.textContent = '00:00';
+    elements.mute.textContent = 'volume_up';
     elements.timebar.value = '0';
     elements.volumebar.value = '1';
 };

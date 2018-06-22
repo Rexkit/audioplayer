@@ -21,7 +21,6 @@ export default class Uploader {
 
     getFileNames() {
         const names = this.files.map(elem => elem.name);
-        console.log(names);
         return names;
     }
 }
