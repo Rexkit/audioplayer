@@ -28,6 +28,10 @@ const handleFolder = async (folder) => {
             fs.mkdir(folder, (error) => {
                 console.log(error);
             });
+
+            fs.mkdir(`${folder}/Main`, (error) => {
+                console.log(error);
+            });
         }
     });
 }
