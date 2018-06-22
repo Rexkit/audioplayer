@@ -40,7 +40,13 @@ const handleFolder = async (folder) => {
  * Routes
  */
 
-app.get('/', function (req, res) {
+app.get('/', async (req, res) => {
+    try {
+        await fs.ensureDir(`${__dirname}/uploads`);
+        console.log('success dir upld!')
+    } catch (err) {
+        console.error(err)
+    }
     res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
