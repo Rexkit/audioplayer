@@ -1,0 +1,133 @@
+@import 'variables';
+
+@media (max-width: 759px) {
+    .download-box {
+        position: relative;
+        margin: 2rem;
+        transform: initial;
+        transition: none;
+        overflow: hidden;
+
+        &__heading {
+            position: relative;
+            transform: none;
+            right: initial;
+            top: initial;
+        }
+    }
+
+    .playlists-box {
+        position: relative;
+        margin: 2rem;
+        transform: initial;
+        transition: none;
+        overflow: hidden;
+        min-width: 15%;
+
+        &__heading {
+            position: relative;
+            transform: none;
+            right: initial;
+            top: initial;
+        }
+    }
+
+    .container {
+        margin: 2rem;
+        max-width: initial;
+    }
+
+    .login {
+        &__field {
+            width: 25rem;
+        }
+    }
+}
+
+@media (max-width: 697px) {
+    .header {
+        justify-content: center;
+
+        &__logo {
+            display: none;
+        }
+    }
+
+    .material-icons.med {
+        font-size: 2.5rem;
+    }
+
+    .player-box__controls .time {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 600px) {
+    // #time-overall {
+    //     display: none;
+    // }
+
+    .player-box__controls .prog-bar {
+        &__timeline {
+            width: 35%;
+        }
+    }
+}
+
+@media (max-width: 473px) {
+    .login {
+        &__field {
+            width: 17rem;
+        }
+    }
+
+    .logged-box {
+        &__greetings {
+            margin-right: 0.5rem;
+            letter-spacing: 0.1rem;
+        }
+    }
+
+    .logout__btn, .login__btn {
+        padding: 1rem 1.5rem;
+    }
+
+    .player-box__controls .prog-bar {
+        &__volumeline {
+            display: none;
+        }
+    }
+
+    .download {
+        &-box {
+            min-height: initial;
+            padding-bottom: 2rem;
+        }
+
+        &-info {
+            margin: 1.5rem;
+        }
+    }
+}
+
+@media (max-width: 355px) {
+    .login {
+        &__field {
+            width: 16rem;
+        }
+    }
+
+    .logged-box {
+        &__greetings {
+            font-size: 1.5rem;
+        }
+    }
+
+    .material-icons.med {
+        font-size: 2rem;
+    }
+
+    .player-box__controls .time {
+        font-size: 1.2rem;
+    }
+}
