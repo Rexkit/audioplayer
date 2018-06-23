@@ -1,4 +1,5 @@
 const express = require('express');
+const http = require('http');
 const path = require('path');
 const fs = require('fs-extra');
 const formidable = require('formidable');
@@ -148,6 +149,35 @@ app.post('/uploads/:user/:folder/:upld', async (req, res) => {
     });
     form.parse(req);
 });
+
+/**
+ * Heroku idle mode prevent
+ */
+
+const startKeepAlive = () => {
+    setInterval(() => {
+        const options = {
+            host: 'your_app_name.herokuapp.com',
+            port: 80,
+            path: '/'
+        };
+        http.get(options, (res) => {
+            res.on('data', (chunk) => {
+                try {
+                    // optional logging... disable after it's working
+                    console.log(`HEROKU RESPONSE:${chunk}`);
+                } catch (err) {
+                    console.log(err.message);
+                }
+            });
+        }).on('error', (err) => {
+            console.log(`Error:${err.message}`);
+        });
+    }, 20 * 60 * 1000); // load every 20 minutes
+}
+
+startKeepAlive();
+
 
 /**
  * Server cfg
