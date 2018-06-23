@@ -181,7 +181,7 @@ body {
             transition: transform .3s ease;
             backface-visibility: hidden;
             animation: moveFromLeft 1s ease-out;
-            overflow-x: scroll;
+            overflow-x: auto;
 
             &--close {
                 opacity: 0.5;
