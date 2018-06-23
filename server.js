@@ -157,7 +157,7 @@ app.post('/uploads/:user/:folder/:upld', async (req, res) => {
 const startKeepAlive = () => {
     setInterval(() => {
         const options = {
-            host: 'your_app_name.herokuapp.com',
+            host: 'audioplayer-project.herokuapp.com',
             port: 80,
             path: '/'
         };
