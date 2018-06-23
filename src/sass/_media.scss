@@ -4,13 +4,16 @@
     .download-box {
         position: relative;
         margin: 2rem;
-        transform: initial;
+        -webkit-transform: initial;
+                transform: initial;
+        -webkit-transition: none;
         transition: none;
         overflow: hidden;
 
         &__heading {
             position: relative;
-            transform: none;
+            -webkit-transform: none;
+                    transform: none;
             right: initial;
             top: initial;
         }
@@ -19,14 +22,17 @@
     .playlists-box {
         position: relative;
         margin: 2rem;
-        transform: initial;
+        -webkit-transform: initial;
+                transform: initial;
+        -webkit-transition: none;
         transition: none;
         overflow: hidden;
         min-width: 15%;
 
         &__heading {
             position: relative;
-            transform: none;
+            -webkit-transform: none;
+                    transform: none;
             right: initial;
             top: initial;
         }
@@ -46,7 +52,9 @@
 
 @media (max-width: 697px) {
     .header {
-        justify-content: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
 
         &__logo {
             display: none;

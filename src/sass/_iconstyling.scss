@@ -3,9 +3,12 @@
 }
 
 .controls__icons {
-    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    -webkit-transition: all .3s ease;
     transition: all .3s ease;
     &:hover {
-        transform: scale(1.25);
+        -webkit-transform: scale(1.25);
+                transform: scale(1.25);
     }
 }
