@@ -164,8 +164,7 @@ const startKeepAlive = () => {
         http.get(options, (res) => {
             res.on('data', (chunk) => {
                 try {
-                    // optional logging... disable after it's working
-                    console.log(`HEROKU RESPONSE:${chunk}`);
+                    console.log(`Up`);
                 } catch (err) {
                     console.log(err.message);
                 }

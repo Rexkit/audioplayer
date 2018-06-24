@@ -18,7 +18,7 @@ export const renderLogin = (type, username) => {
     } else if (type == 'login') {
         markup = `
             <div class="logged-box">
-                <p class="logged-box__greetings">${username}, you're welcome</p>
+                <p class="logged-box__greetings">Logged as ${username}</p>
                 <button class="btn logout__btn">
                     <span>Log Out</span>
                 </button>

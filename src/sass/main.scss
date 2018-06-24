@@ -95,6 +95,8 @@ body {
 }
 
 .logged-box {
+    white-space: nowrap;
+
     &__greetings {
         text-transform: uppercase;
         font-weight: 300;

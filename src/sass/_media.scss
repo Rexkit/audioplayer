@@ -9,6 +9,8 @@
         -webkit-transition: none;
         transition: none;
         overflow: hidden;
+        min-height: initial;
+       
 
         &__heading {
             position: relative;
@@ -17,6 +19,20 @@
             right: initial;
             top: initial;
         }
+
+        &:hover {
+            .box-wrapper {
+                display: initial;
+            }
+
+            padding-bottom: 2rem;
+        }
+    }
+
+    .box-wrapper {
+        display: none;
+        -webkit-transition: all 1s ease;
+        transition: all 1s ease;
     }
 
     .playlists-box {
@@ -28,6 +44,7 @@
         transition: none;
         overflow: hidden;
         min-width: 15%;
+        min-height: initial;
 
         &__heading {
             position: relative;
@@ -35,6 +52,12 @@
                     transform: none;
             right: initial;
             top: initial;
+        }
+
+        &:hover {
+            .box-wrapper {
+                display: initial;
+            }
         }
     }
 
@@ -91,6 +114,7 @@
 
     .logged-box {
         &__greetings {
+            font-size: 1.5rem;
             margin-right: 0.5rem;
             letter-spacing: 0.1rem;
         }
@@ -109,7 +133,6 @@
     .download {
         &-box {
             min-height: initial;
-            padding-bottom: 2rem;
         }
 
         &-info {
