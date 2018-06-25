@@ -118,8 +118,13 @@ elements.folderAddBtn.addEventListener('click', e => {
     e.preventDefault();
     if (state.folderList) {
         const folderName = elements.folderField.value;
-        state.folderList.addFolder(state.login.username, folderName);
-        folderlistView.renderItem(folderName);
+        if (folderName.length <= 20 && folderName.length >= 1 && folderName[0] !== ' ') {
+            state.folderList.addFolder(state.login.username, folderName);
+            folderlistView.renderItem(folderName);
+            elements.folderField.value = ''; //fastfix
+        } else {
+            alert('Please enter valid name!');
+        }
     }
 });
 
