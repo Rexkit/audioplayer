@@ -150,32 +150,32 @@ app.post('/uploads/:user/:folder/:upld', async (req, res) => {
     form.parse(req);
 });
 
-/**
- * Heroku idle mode prevent
- */
+// /**
+//  * Heroku idle mode prevent
+//  */
 
-const startKeepAlive = () => {
-    setInterval(() => {
-        const options = {
-            host: 'audioplayer-project.herokuapp.com',
-            port: 80,
-            path: '/'
-        };
-        http.get(options, (res) => {
-            res.on('data', (chunk) => {
-                try {
-                    console.log(`Up`);
-                } catch (err) {
-                    console.log(err.message);
-                }
-            });
-        }).on('error', (err) => {
-            console.log(`Error:${err.message}`);
-        });
-    }, 20 * 60 * 1000); // load every 20 minutes
-}
+// const startKeepAlive = () => {
+//     setInterval(() => {
+//         const options = {
+//             host: 'audioplayer-project.herokuapp.com',
+//             port: 80,
+//             path: '/'
+//         };
+//         http.get(options, (res) => {
+//             res.on('data', (chunk) => {
+//                 try {
+//                     console.log(`Up`);
+//                 } catch (err) {
+//                     console.log(err.message);
+//                 }
+//             });
+//         }).on('error', (err) => {
+//             console.log(`Error:${err.message}`);
+//         });
+//     }, 20 * 60 * 1000); // load every 20 minutes
+// }
 
-startKeepAlive();
+// startKeepAlive();
 
 
 /**
